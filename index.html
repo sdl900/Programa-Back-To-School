@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login y Register - MagtimusPro</title>
+    <title>Login y Register - Programa Back-to-School</title>
     <!-- Fuente de Google -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <!-- Estilos CSS -->
@@ -11,29 +11,29 @@
         /* Estilos generales */
         body {
             font-family: 'Roboto', sans-serif;
-            background-image: url('https://plus.unsplash.com/premium_photo-1661963447711-27f892ffe292?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Ruta de la imagen de fondo */
-            background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
-            background-position: center; /* Centra la imagen */
-            background-repeat: no-repeat; /* Evita que la imagen se repita */
-            background-attachment: fixed; /* Fija la imagen para que no se desplace con el contenido */
+            background-image: url('https://plus.unsplash.com/premium_photo-1661963447711-27f892ffe292?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px; /* Espacio para dispositivos móviles */
+            padding: 20px;
         }
 
         .contenedor__todo {
-            background: rgba(255, 255, 255, 0.9); /* Fondo blanco con transparencia */
+            background: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
             text-align: center;
-            box-sizing: border-box; /* Evita que el padding desborde el ancho */
+            box-sizing: border-box;
         }
 
         .formulario h2 {
@@ -51,7 +51,7 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 16px;
-            box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
+            box-sizing: border-box;
         }
 
         .formulario button {
@@ -70,7 +70,7 @@
         }
 
         .perfil {
-            display: none; /* Oculto por defecto */
+            display: none;
         }
 
         .perfil h2 {
@@ -136,6 +136,23 @@
             border-radius: 5px;
         }
 
+        .usuario {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .usuario p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .usuario strong {
+            color: #333;
+        }
+
         .cambiar-contrasena {
             margin-top: 20px;
             padding: 10px;
@@ -153,33 +170,33 @@
         /* Media Queries para dispositivos móviles */
         @media (max-width: 480px) {
             body {
-                padding: 10px; /* Menos padding en móviles */
+                padding: 10px;
             }
 
             .contenedor__todo {
-                padding: 15px; /* Menos padding en móviles */
+                padding: 15px;
             }
 
             .formulario h2 {
-                font-size: 20px; /* Tamaño de fuente más pequeño */
+                font-size: 20px;
             }
 
             .formulario input,
             .formulario select,
             .formulario textarea {
-                font-size: 14px; /* Tamaño de fuente más pequeño */
+                font-size: 14px;
             }
 
             .formulario button {
-                font-size: 14px; /* Tamaño de fuente más pequeño */
+                font-size: 14px;
             }
 
             .buscar-usuario input {
-                width: calc(100% - 80px); /* Ajuste para móviles */
+                width: calc(100% - 80px);
             }
 
             .buscar-usuario button {
-                width: 80px; /* Ajuste para móviles */
+                width: 80px;
             }
         }
     </style>
@@ -286,20 +303,150 @@
 
     <!-- Script JS -->
     <script>
-        // Alternar entre Login y Register
-        document.getElementById('btn__registrarse').addEventListener('click', function(e) {
-            e.preventDefault(); // Evita que el enlace recargue la página
-            document.getElementById('formLogin').style.display = 'none'; // Oculta el formulario de inicio de sesión
-            document.getElementById('formRegister').style.display = 'block'; // Muestra el formulario de registro
+        // Simulación de una base de datos de usuarios
+        let usuarios = [];
+
+        // Obtener referencias a los formularios y botones
+        const formLogin = document.getElementById("formLogin");
+        const formRegister = document.getElementById("formRegister");
+        const btnIniciarSesion = document.getElementById("btn__iniciar-sesion");
+        const btnRegistrarse = document.getElementById("btn__registrarse");
+        const perfil = document.getElementById("perfil");
+
+        // Alternar entre formularios de inicio de sesión y registro
+        btnIniciarSesion.addEventListener("click", () => {
+            formLogin.style.display = "block";
+            formRegister.style.display = "none";
+            perfil.style.display = "none";
         });
 
-        document.getElementById('btn__iniciar-sesion').addEventListener('click', function(e) {
-            e.preventDefault(); // Evita que el enlace recargue la página
-            document.getElementById('formLogin').style.display = 'block'; // Muestra el formulario de inicio de sesión
-            document.getElementById('formRegister').style.display = 'none'; // Oculta el formulario de registro
+        btnRegistrarse.addEventListener("click", () => {
+            formLogin.style.display = "none";
+            formRegister.style.display = "block";
+            perfil.style.display = "none";
         });
 
-        // Resto del código JavaScript existente...
+        // Manejar el registro de usuarios
+        formRegister.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const nombre = document.getElementById("registerNombre").value;
+            const email = document.getElementById("registerEmail").value;
+            const password = document.getElementById("registerPassword").value;
+
+            // Validar campos obligatorios
+            if (!nombre || !email || !password) {
+                alert("Por favor, completa todos los campos obligatorios.");
+                return;
+            }
+
+            // Verificar si el correo ya está registrado
+            const existeUsuario = usuarios.some(u => u.email === email);
+            if (existeUsuario) {
+                alert("Este correo electrónico ya está registrado.");
+                return;
+            }
+
+            const usuario = {
+                nombre,
+                email,
+                telegram: document.getElementById("registerTelegram").value,
+                password,
+                telefono: document.getElementById("numero-telefono").value,
+                tipoDocumento: document.getElementById("tipo-documento").value,
+                numeroDocumento: document.getElementById("numero-documento").value,
+                fechaNacimiento: document.getElementById("fecha-nacimiento").value,
+                genero: document.getElementById("genero").value,
+                pais: document.getElementById("pais").value,
+                tipoUsuario: document.getElementById("tipo-usuario").value,
+                nombreProyecto: document.getElementById("nombre-proyecto").value,
+                sponsorGrupo: document.getElementById("sponsor-grupo").value,
+                jefeGrupo: document.getElementById("jefe-grupo").value,
+                liderGrupo: document.getElementById("lider-grupo").value,
+                sugerencias: document.getElementById("sugerencias").value,
+            };
+
+            // Guardar el usuario en la "base de datos"
+            usuarios.push(usuario);
+            alert("Registro exitoso. Ahora puedes iniciar sesión.");
+            formRegister.reset();
+            formLogin.style.display = "block";
+            formRegister.style.display = "none";
+        });
+
+        // Manejar el inicio de sesión
+        formLogin.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById("loginUsuario").value;
+            const password = document.getElementById("loginPassword").value;
+
+            // Buscar el usuario en la "base de datos"
+            const usuarioEncontrado = usuarios.find(
+                (u) => u.email === email && u.password === password
+            );
+
+            if (usuarioEncontrado) {
+                alert("Inicio de sesión exitoso.");
+                mostrarPerfil(usuarioEncontrado);
+            } else {
+                alert("Usuario o contraseña incorrectos.");
+            }
+        });
+
+        // Función para mostrar el perfil del usuario
+        function mostrarPerfil(usuario) {
+            formLogin.style.display = "none";
+            formRegister.style.display = "none";
+            perfil.style.display = "block";
+
+            document.getElementById("perfilNombre").textContent = usuario.nombre;
+            document.getElementById("perfilEmail").textContent = usuario.email;
+            document.getElementById("perfilTelefono").textContent = usuario.telefono;
+            document.getElementById("perfilTipoDocumento").textContent = usuario.tipoDocumento;
+            document.getElementById("perfilNumeroDocumento").textContent = usuario.numeroDocumento;
+            document.getElementById("perfilFechaNacimiento").textContent = usuario.fechaNacimiento;
+            document.getElementById("perfilGenero").textContent = usuario.genero;
+            document.getElementById("perfilPais").textContent = usuario.pais;
+            document.getElementById("perfilTipoUsuario").textContent = usuario.tipoUsuario;
+            document.getElementById("perfilTelegram").textContent = usuario.telegram;
+            document.getElementById("perfilNombreProyecto").textContent = usuario.nombreProyecto;
+            document.getElementById("perfilSponsorGrupo").textContent = usuario.sponsorGrupo;
+            document.getElementById("perfilJefeGrupo").textContent = usuario.jefeGrupo;
+            document.getElementById("perfilLiderGrupo").textContent = usuario.liderGrupo;
+            document.getElementById("perfilSugerencias").textContent = usuario.sugerencias;
+        }
+
+        // Manejar la búsqueda de usuarios
+        document.getElementById('btnBuscarUsuario').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const busqueda = document.getElementById('buscarUsuario').value.trim();
+
+            if (busqueda === '') {
+                alert('Por favor, ingresa un término de búsqueda.');
+                return;
+            }
+
+            const resultados = usuarios.filter(usuario =>
+                usuario.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
+                usuario.email.toLowerCase().includes(busqueda.toLowerCase()) ||
+                usuario.telegram.toLowerCase().includes(busqueda.toLowerCase())
+            );
+
+            const resultadoBusqueda = document.getElementById('resultadoBusqueda');
+            if (resultados.length > 0) {
+                resultadoBusqueda.innerHTML = resultados.map(usuario => `
+                    <div class="usuario">
+                        <p><strong>Nombre:</strong> ${usuario.nombre}</p>
+                        <p><strong>Correo:</strong> ${usuario.email}</p>
+                        <p><strong>Telegram:</strong> ${usuario.telegram}</p>
+                    </div>
+                `).join('');
+            } else {
+                resultadoBusqueda.innerHTML = '<p>No se encontraron resultados.</p>';
+            }
+        });
     </script>
 </body>
 </html>
