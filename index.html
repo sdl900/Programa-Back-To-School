@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login y Register - Programa Back-to-School</title>
+    <!-- Fuente de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <!-- Estilos CSS -->
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('https://plus.unsplash.com/premium_photo-1661963447711-27f892ffe292?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .contenedor__todo {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .formulario h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .formulario input,
+        .formulario select,
+        .formulario textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .formulario button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .formulario button:hover {
+            background-color: #0056b3;
+        }
+
+        .perfil {
+            display: none;
+        }
+
+        .perfil h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .perfil p {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .perfil button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .perfil button:hover {
+            background-color: #218838;
+        }
+
+        .buscar-usuario {
+            margin-top: 20px;
+        }
+
+        .buscar-usuario input {
+            width: calc(100% - 100px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .buscar-usuario button {
+            width: 90px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .buscar-usuario button:hover {
+            background-color: #0056b3;
+        }
+
+        .resultado-busqueda {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .usuario {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .usuario p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .usuario strong {
+            color: #333;
+        }
+
+        .cambiar-contrasena {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .cambiar-contrasena h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Media Queries para dispositivos móviles */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .contenedor__todo {
+                padding: 15px;
+            }
+
+            .formulario h2 {
+                font-size: 20px;
+            }
+
+            .formulario input,
+            .formulario select,
+            .formulario textarea {
+                font-size: 14px;
+            }
+
+            .formulario button {
+                font-size: 14px;
+            }
+
+            .buscar-usuario input {
+                width: calc(100% - 80px);
+            }
+
+            .buscar-usuario button {
+                width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="contenedor__todo">
+            <!-- Título moderno -->
+            <h1 class="titulo-moderno">Programa Back-to-School</h1>
+
+            <!-- Formulario de Login -->
+            <form id="formLogin" class="formulario">
+                <h2>Iniciar Sesión</h2>
+                <input type="text" id="loginUsuario" placeholder="Correo o Usuario de Telegram" required>
+                <input type="password" id="loginPassword" placeholder="Contraseña" required>
+                <button type="submit">Ingresar</button>
+                <p>¿No tienes una cuenta? <a href="#" id="btn__registrarse">Regístrate</a></p>
+            </form>
+
+            <!-- Formulario de Registro -->
+            <form id="formRegister" class="formulario" style="display: none;">
+                <h2>Regístrarse</h2>
+                <input type="text" id="registerNombre" placeholder="Nombre completo" required>
+                <input type="email" id="registerEmail" placeholder="Correo Electrónico" required>
+                <input type="password" id="registerPassword" placeholder="Contraseña" required>
+                <input type="tel" id="numero-telefono" placeholder="Código de área + Teléfono" required>
+                <select id="tipo-documento" required>
+                    <option value="" disabled selected>Tipo de documento</option>
+                    <option value="dni">DNI</option>
+                    <option value="cc">CC (Cédula de Ciudadanía)</option>
+                    <option value="pasaporte">Pasaporte</option>
+                    <option value="licencia">Licencia de conducir</option>
+                </select>
+                <input type="text" id="numero-documento" placeholder="Número de documento" required>
+                <input type="text" id="fecha-nacimiento" placeholder="Fecha de nacimiento (DD/MM/AAAA)" required>
+                <select id="genero" required>
+                    <option value="" disabled selected>Género</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="otro">Otro</option>
+                </select>
+                <input type="text" id="pais" placeholder="País" required>
+                <select id="tipo-usuario" required>
+                    <option value="" disabled selected>Selecciona tu tipo de usuario</option>
+                    <option value="usuario">Usuario</option>
+                    <option value="ceo">CEO</option>
+                    <option value="sponsor">Sponsor</option>
+                    <option value="jefe-grupo">Jefe de grupo</option>
+                    <option value="lider-grupo">Líder de grupo</option>
+                </select>
+                <input type="text" id="registerTelegram" placeholder="Usuario de Telegram" required>
+                <input type="text" id="nombre-proyecto" placeholder="Nombre del proyecto o grupo" required>
+                <input type="text" id="sponsor-grupo" placeholder="Sponsor del grupo">
+                <input type="text" id="jefe-grupo" placeholder="Jefe de grupo">
+                <input type="text" id="lider-grupo" placeholder="Líder de grupo">
+                <textarea id="sugerencias" placeholder="Cuadro de sugerencias"></textarea>
+                <button type="submit">Regístrarse</button>
+                <p>¿Ya tienes una cuenta? <a href="#" id="btn__iniciar-sesion">Inicia Sesión</a></p>
+            </form>
+
+            <!-- Campo de búsqueda debajo del inicio de sesión -->
+            <div class="buscar-usuario">
+                <input type="text" id="buscarUsuario" placeholder="Buscar por correo, nombre o Telegram">
+                <button id="btnBuscarUsuario">Buscar</button>
+            </div>
+
+            <!-- Resultado de la búsqueda -->
+            <div id="resultadoBusqueda" class="resultado-busqueda">
+                <!-- Aquí se mostrará la información del usuario buscado -->
+            </div>
+
+            <!-- Perfil del Usuario -->
+            <div id="perfil" class="perfil">
+                <h2>Mi Perfil</h2>
+                <p><strong>Nombre:</strong> <span id="perfilNombre"></span></p>
+                <p><strong>Correo:</strong> <span id="perfilEmail"></span></p>
+                <p><strong>Teléfono:</strong> <span id="perfilTelefono"></span></p>
+                <p><strong>Tipo de Documento:</strong> <span id="perfilTipoDocumento"></span></p>
+                <p><strong>Número de Documento:</strong> <span id="perfilNumeroDocumento"></span></p>
+                <p><strong>Fecha de Nacimiento:</strong> <span id="perfilFechaNacimiento"></span></p>
+                <p><strong>Género:</strong> <span id="perfilGenero"></span></p>
+                <p><strong>País:</strong> <span id="perfilPais"></span></p>
+                <p><strong>Tipo de Usuario:</strong> <span id="perfilTipoUsuario"></span></p>
+                <p><strong>Usuario de Telegram:</strong> <span id="perfilTelegram"></span></p>
+                <p><strong>Nombre del Proyecto:</strong> <span id="perfilNombreProyecto"></span></p>
+                <p><strong>Sponsor del Grupo:</strong> <span id="perfilSponsorGrupo"></span></p>
+                <p><strong>Jefe de Grupo:</strong> <span id="perfilJefeGrupo"></span></p>
+                <p><strong>Líder de Grupo:</strong> <span id="perfilLiderGrupo"></span></p>
+                <p><strong>Sugerencias:</strong> <span id="perfilSugerencias"></span></p>
+
+                <!-- Formulario para cambiar contraseña -->
+                <div class="cambiar-contrasena">
+                    <h3>Cambiar Contraseña</h3>
+                    <input type="password" id="contrasenaActual" placeholder="Contraseña actual" required>
+                    <input type="password" id="nuevaContrasena" placeholder="Nueva contraseña" required>
+                    <button id="btnCambiarContrasena">Cambiar Contraseña</button>
+                </div>
+
+                <button id="btnEditarPerfil">Editar Perfil</button>
+                <button id="btnCerrarSesion">Cerrar Sesión</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Script JS -->
+    <script>
+        // Simulación de una base de datos de usuarios
+        let usuarios = [];
+
+        // Obtener referencias a los formularios y botones
+        const formLogin = document.getElementById("formLogin");
+        const formRegister = document.getElementById("formRegister");
+        const btnIniciarSesion = document.getElementById("btn__iniciar-sesion");
+        const btnRegistrarse = document.getElementById("btn__registrarse");
+        const perfil = document.getElementById("perfil");
+
+        // Alternar entre formularios de inicio de sesión y registro
+        btnIniciarSesion.addEventListener("click", () => {
+            formLogin.style.display = "block";
+            formRegister.style.display = "none";
+            perfil.style.display = "none";
+        });
+
+        btnRegistrarse.addEventListener("click", () => {
+            formLogin.style.display = "none";
+            formRegister.style.display = "block";
+            perfil.style.display = "none";
+        });
+
+        // Manejar el registro de usuarios
+        formRegister.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const nombre = document.getElementById("registerNombre").value;
+            const email = document.getElementById("registerEmail").value;
+            const password = document.getElementById("registerPassword").value;
+
+            // Validar campos obligatorios
+            if (!nombre || !email || !password) {
+                alert("Por favor, completa todos los campos obligatorios.");
+                return;
+            }
+
+            // Verificar si el correo ya está registrado
+            const existeUsuario = usuarios.some(u => u.email === email);
+            if (existeUsuario) {
+                alert("Este correo electrónico ya está registrado.");
+                return;
+            }
+
+            const usuario = {
+                nombre,
+                email,
+                telegram: document.getElementById("registerTelegram").value,
+                password,
+                telefono: document.getElementById("numero-telefono").value,
+                tipoDocumento: document.getElementById("tipo-documento").value,
+                numeroDocumento: document.getElementById("numero-documento").value,
+                fechaNacimiento: document.getElementById("fecha-nacimiento").value,
+                genero: document.getElementById("genero").value,
+                pais: document.getElementById("pais").value,
+                tipoUsuario: document.getElementById("tipo-usuario").value,
+                nombreProyecto: document.getElementById("nombre-proyecto").value,
+                sponsorGrupo: document.getElementById("sponsor-grupo").value,
+                jefeGrupo: document.getElementById("jefe-grupo").value,
+                liderGrupo: document.getElementById("lider-grupo").value,
+                sugerencias: document.getElementById("sugerencias").value,
+            };
+
+            // Guardar el usuario en la "base de datos"
+            usuarios.push(usuario);
+            alert("Registro exitoso. Ahora puedes iniciar sesión.");
+            formRegister.reset();
+            formLogin.style.display = "block";
+            formRegister.style.display = "none";
+        });
+
+        // Manejar el inicio de sesión
+        formLogin.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById("loginUsuario").value;
+            const password = document.getElementById("loginPassword").value;
+
+            // Buscar el usuario en la "base de datos"
+            const usuarioEncontrado = usuarios.find(
+                (u) => u.email === email && u.password === password
+            );
+
+            if (usuarioEncontrado) {
+                alert("Inicio de sesión exitoso.");
+                mostrarPerfil(usuarioEncontrado);
+            } else {
+                alert("Usuario o contraseña incorrectos.");
+            }
+        });
+
+        // Función para mostrar el perfil del usuario
+        function mostrarPerfil(usuario) {
+            formLogin.style.display = "none";
+            formRegister.style.display = "none";
+            perfil.style.display = "block";
+
+            document.getElementById("perfilNombre").textContent = usuario.nombre;
+            document.getElementById("perfilEmail").textContent = usuario.email;
+            document.getElementById("perfilTelefono").textContent = usuario.telefono;
+            document.getElementById("perfilTipoDocumento").textContent = usuario.tipoDocumento;
+            document.getElementById("perfilNumeroDocumento").textContent = usuario.numeroDocumento;
+            document.getElementById("perfilFechaNacimiento").textContent = usuario.fechaNacimiento;
+            document.getElementById("perfilGenero").textContent = usuario.genero;
+            document.getElementById("perfilPais").textContent = usuario.pais;
+            document.getElementById("perfilTipoUsuario").textContent = usuario.tipoUsuario;
+            document.getElementById("perfilTelegram").textContent = usuario.telegram;
+            document.getElementById("perfilNombreProyecto").textContent = usuario.nombreProyecto;
+            document.getElementById("perfilSponsorGrupo").textContent = usuario.sponsorGrupo;
+            document.getElementById("perfilJefeGrupo").textContent = usuario.jefeGrupo;
+            document.getElementById("perfilLiderGrupo").textContent = usuario.liderGrupo;
+            document.getElementById("perfilSugerencias").textContent = usuario.sugerencias;
+        }
+
+        // Manejar la búsqueda de usuarios
+        document.getElementById('btnBuscarUsuario').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const busqueda = document.getElementById('buscarUsuario').value.trim();
+
+            if (busqueda === '') {
+                alert('Por favor, ingresa un término de búsqueda.');
+                return;
+            }
+
+            const resultados = usuarios.filter(usuario =>
+                usuario.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
+                usuario.email.toLowerCase().includes(busqueda.toLowerCase()) ||
+                usuario.telegram.toLowerCase().includes(busqueda.toLowerCase())
+            );
+
+            const resultadoBusqueda = document.getElementById('resultadoBusqueda');
+            if (resultados.length > 0) {
+                resultadoBusqueda.innerHTML = resultados.map(usuario => `
+                    <div class="usuario">
+                        <p><strong>Nombre:</strong> ${usuario.nombre}</p>
+                        <p><strong>Correo:</strong> ${usuario.email}</p>
+                        <p><strong>Telegram:</strong> ${usuario.telegram}</p>
+                    </div>
+                `).join('');
+            } else {
+                resultadoBusqueda.innerHTML = '<p>No se encontraron resultados.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
