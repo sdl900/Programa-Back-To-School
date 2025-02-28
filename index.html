@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            padding: 20px; /* Espacio para dispositivos móviles */
         }
 
         .contenedor__todo {
@@ -28,6 +29,7 @@
             width: 100%;
             max-width: 400px;
             text-align: center;
+            box-sizing: border-box; /* Evita que el padding desborde el ancho */
         }
 
         .formulario h2 {
@@ -45,6 +47,7 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 16px;
+            box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
         }
 
         .formulario button {
@@ -103,6 +106,7 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 16px;
+            box-sizing: border-box;
         }
 
         .buscar-usuario button {
@@ -140,6 +144,39 @@
             margin-bottom: 10px;
             font-size: 18px;
             color: #333;
+        }
+
+        /* Media Queries para dispositivos móviles */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px; /* Menos padding en móviles */
+            }
+
+            .contenedor__todo {
+                padding: 15px; /* Menos padding en móviles */
+            }
+
+            .formulario h2 {
+                font-size: 20px; /* Tamaño de fuente más pequeño */
+            }
+
+            .formulario input,
+            .formulario select,
+            .formulario textarea {
+                font-size: 14px; /* Tamaño de fuente más pequeño */
+            }
+
+            .formulario button {
+                font-size: 14px; /* Tamaño de fuente más pequeño */
+            }
+
+            .buscar-usuario input {
+                width: calc(100% - 80px); /* Ajuste para móviles */
+            }
+
+            .buscar-usuario button {
+                width: 80px; /* Ajuste para móviles */
+            }
         }
     </style>
 </head>
