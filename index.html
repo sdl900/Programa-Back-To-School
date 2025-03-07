@@ -167,6 +167,29 @@
             color: #333;
         }
 
+        /* Estilos para el ícono de vista */
+        .input-contrasena {
+            position: relative;
+        }
+
+        .input-contrasena input {
+            padding-right: 40px; /* Espacio para el ícono */
+        }
+
+        .input-contrasena .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .input-contrasena .toggle-password:hover {
+            color: #333;
+        }
+
         /* Media Queries para dispositivos móviles */
         @media (max-width: 480px) {
             body {
@@ -210,8 +233,13 @@
             <!-- Formulario de Login -->
             <form id="formLogin" class="formulario">
                 <h2>Iniciar Sesión</h2>
-                <input type="text" id="loginUsuario" placeholder="Correo o Usuario de Telegram" required>
-                <input type="password" id="loginPassword" placeholder="Contraseña" required>
+                <!-- Campo de correo electrónico -->
+                <input type="email" id="loginEmail" placeholder="Correo Electrónico" required>
+                <!-- Campo de contraseña con ícono de ojo -->
+                <div class="input-contrasena">
+                    <input type="password" id="loginPassword" placeholder="Contraseña" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility('loginPassword')">👁️</span>
+                </div>
                 <button type="submit">Ingresar</button>
                 <p>¿No tienes una cuenta? <a href="#" id="btn__registrarse">Regístrate</a></p>
             </form>
@@ -221,7 +249,14 @@
                 <h2>Regístrarse</h2>
                 <input type="text" id="registerNombre" placeholder="Nombre completo" required>
                 <input type="email" id="registerEmail" placeholder="Correo Electrónico" required>
-                <input type="password" id="registerPassword" placeholder="Contraseña" required>
+                <div class="input-contrasena">
+                    <input type="password" id="registerPassword" placeholder="Contraseña" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility('registerPassword')">👁️</span>
+                </div>
+                <div class="input-contrasena">
+                    <input type="password" id="confirmPassword" placeholder="Confirmar Contraseña" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">👁️</span>
+                </div>
                 <input type="tel" id="numero-telefono" placeholder="Código de área + Teléfono" required>
                 <select id="tipo-documento" required>
                     <option value="" disabled selected>Tipo de documento</option>
@@ -290,8 +325,18 @@
                 <!-- Formulario para cambiar contraseña -->
                 <div class="cambiar-contrasena">
                     <h3>Cambiar Contraseña</h3>
-                    <input type="password" id="contrasenaActual" placeholder="Contraseña actual" required>
-                    <input type="password" id="nuevaContrasena" placeholder="Nueva contraseña" required>
+                    <div class="input-contrasena">
+                        <input type="password" id="contrasenaActual" placeholder="Contraseña actual" required>
+                        <span class="toggle-password" onclick="togglePasswordVisibility('contrasenaActual')">👁️</span>
+                    </div>
+                    <div class="input-contrasena">
+                        <input type="password" id="nuevaContrasena" placeholder="Nueva contraseña" required>
+                        <span class="toggle-password" onclick="togglePasswordVisibility('nuevaContrasena')">👁️</span>
+                    </div>
+                    <div class="input-contrasena">
+                        <input type="password" id="confirmarNuevaContrasena" placeholder="Confirmar nueva contraseña" required>
+                        <span class="toggle-password" onclick="togglePasswordVisibility('confirmarNuevaContrasena')">👁️</span>
+                    </div>
                     <button id="btnCambiarContrasena">Cambiar Contraseña</button>
                 </div>
 
@@ -303,6 +348,16 @@
 
     <!-- Script JS -->
     <script>
+        // Función para mostrar/ocultar contraseña
+        function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
+            }
+        }
+
         // Simulación de una base de datos de usuarios
         let usuarios = [];
 
@@ -333,10 +388,17 @@
             const nombre = document.getElementById("registerNombre").value;
             const email = document.getElementById("registerEmail").value;
             const password = document.getElementById("registerPassword").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
 
             // Validar campos obligatorios
-            if (!nombre || !email || !password) {
+            if (!nombre || !email || !password || !confirmPassword) {
                 alert("Por favor, completa todos los campos obligatorios.");
+                return;
+            }
+
+            // Validar que las contraseñas coincidan
+            if (password !== confirmPassword) {
+                alert("Las contraseñas no coinciden.");
                 return;
             }
 
@@ -378,7 +440,7 @@
         formLogin.addEventListener("submit", (e) => {
             e.preventDefault();
 
-            const email = document.getElementById("loginUsuario").value;
+            const email = document.getElementById("loginEmail").value;
             const password = document.getElementById("loginPassword").value;
 
             // Buscar el usuario en la "base de datos"
@@ -446,6 +508,32 @@
             } else {
                 resultadoBusqueda.innerHTML = '<p>No se encontraron resultados.</p>';
             }
+        });
+
+        // Manejar el cambio de contraseña
+        document.getElementById('btnCambiarContrasena').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const contrasenaActual = document.getElementById('contrasenaActual').value;
+            const nuevaContrasena = document.getElementById('nuevaContrasena').value;
+            const confirmarNuevaContrasena = document.getElementById('confirmarNuevaContrasena').value;
+
+            // Validar que las nuevas contraseñas coincidan
+            if (nuevaContrasena !== confirmarNuevaContrasena) {
+                alert("Las nuevas contraseñas no coinciden.");
+                return;
+            }
+
+            // Simular la validación de la contraseña actual (aquí deberías comparar con la base de datos)
+            const usuarioActual = usuarios.find(u => u.password === contrasenaActual);
+            if (!usuarioActual) {
+                alert("La contraseña actual es incorrecta.");
+                return;
+            }
+
+            // Actualizar la contraseña
+            usuarioActual.password = nuevaContrasena;
+            alert("Contraseña cambiada exitosamente.");
         });
     </script>
 </body>
